@@ -1,0 +1,886 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Portfólio Maciely Alves</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap">
+<style>
+/* Layout: faixa lilás fixa no topo com as abas; na aba Início ela abre com o título e o retrato em moldura arredondada (eco do slide da escola). Seções alternam fundo claro e lilás suave; colunas de série e molduras de celular lembram os slides de referência. */
+:root {
+  --bg: #FBF9FE;
+  --surface: #FFFFFF;
+  --soft: #F2EBFB;
+  --line: #E3D8F3;
+  --fg: #2A2037;
+  --fg-soft: #4B3E62;
+  --muted: #6B5F7F;
+  --accent: #6A3DA6;
+  --accent-ink: #FFFFFF;
+  --lilac: #D9C4F5;
+  --dot: #C2A8EA;
+  --hero-1: #F0E6FC;
+  --hero-2: #DCC8F6;
+  --blob-1: #C9A9F0;
+  --blob-2: #FFFFFF;
+  --ring: rgba(255, 255, 255, 0.75);
+  --tabbg: rgba(255, 255, 255, 0.55);
+  --device: #2A2037;
+  --edit: rgba(106, 61, 166, 0.5);
+  --shadow: 0 22px 44px -22px rgba(90, 50, 150, 0.45);
+  --font-display: 'Montserrat', system-ui, sans-serif;
+  --font-body: 'Figtree', system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16101E; --surface: #20172C; --soft: #2A1F3A; --line: #3B2E52;
+    --fg: #F1EBF9; --fg-soft: #D9CDEC; --muted: #B3A6C8;
+    --accent: #C4A5F4; --accent-ink: #1B1228; --lilac: #3A2A57; --dot: #5A4780;
+    --hero-1: #2B1E40; --hero-2: #3F2B63; --blob-1: #5A3C8F; --blob-2: #2F2147;
+    --ring: rgba(196, 165, 244, 0.22); --tabbg: rgba(255, 255, 255, 0.08);
+    --device: #0B0710; --edit: rgba(196, 165, 244, 0.55);
+    --shadow: 0 22px 44px -22px rgba(0, 0, 0, 0.7);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #16101E; --surface: #20172C; --soft: #2A1F3A; --line: #3B2E52;
+  --fg: #F1EBF9; --fg-soft: #D9CDEC; --muted: #B3A6C8;
+  --accent: #C4A5F4; --accent-ink: #1B1228; --lilac: #3A2A57; --dot: #5A4780;
+  --hero-1: #2B1E40; --hero-2: #3F2B63; --blob-1: #5A3C8F; --blob-2: #2F2147;
+  --ring: rgba(196, 165, 244, 0.22); --tabbg: rgba(255, 255, 255, 0.08);
+  --device: #0B0710; --edit: rgba(196, 165, 244, 0.55);
+  --shadow: 0 22px 44px -22px rgba(0, 0, 0, 0.7);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 1rem/1.65 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+p { margin: 0 0 1rem; max-width: 65ch; }
+h1, h2, h3, h4 { font-family: var(--font-display); text-wrap: balance; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+.wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* barra do modo edição */
+.note { background: var(--soft); border-bottom: 1px solid var(--line); font-size: 0.875rem; color: var(--fg-soft); }
+.note .wrap { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; flex-wrap: wrap; padding-block: 0.6rem; }
+.note p { margin: 0; flex: 1 1 340px; min-width: 0; }
+.note-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+#export-area { display: block; width: 100%; min-height: 6rem; margin-top: 0.5rem; padding: 0.6rem; font: 0.8rem/1.4 ui-monospace, Menlo, monospace; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 12px; }
+
+/* botões */
+.btn, .mini { font-family: var(--font-body); cursor: pointer; text-decoration: none; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.8rem 1.5rem; border-radius: 999px; font-weight: 600; font-size: 0.95rem;
+  border: 1.5px solid var(--accent);
+}
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-line { background: transparent; color: var(--accent); }
+.btn:hover { filter: brightness(1.06); }
+.mini {
+  appearance: none; background: var(--surface); color: var(--accent);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 0.4rem 0.9rem; font-size: 0.8rem; font-weight: 600;
+}
+.mini:hover { border-color: var(--accent); }
+.mini[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+/* topo e abas */
+.hero {
+  position: relative; overflow: hidden;
+  background: linear-gradient(150deg, var(--hero-1), var(--hero-2));
+  padding-block: 0.5rem 2.5rem;
+}
+.hero::before {
+  content: ""; position: absolute; left: -110px; top: -110px; width: 320px; height: 320px; border-radius: 50%;
+  background: repeating-radial-gradient(circle at center, transparent 0 14px, var(--ring) 14px 15px);
+  pointer-events: none;
+}
+.blob { position: absolute; pointer-events: none; }
+.blob.a { right: -140px; bottom: -150px; width: 480px; height: 430px; background: var(--blob-1); opacity: 0.65; border-radius: 58% 42% 61% 39% / 47% 55% 45% 53%; }
+.blob.b { left: 34%; bottom: -230px; width: 400px; height: 330px; background: var(--blob-2); opacity: 0.35; border-radius: 40% 60% 35% 65% / 55% 40% 60% 45%; }
+.blob.c { left: -150px; bottom: -190px; width: 420px; height: 360px; background: var(--blob-1); opacity: 0.5; border-radius: 45% 55% 40% 60% / 55% 45% 55% 45%; }
+.hero .wrap, .band .wrap { position: relative; z-index: 1; }
+
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem; flex-wrap: wrap; padding-block: 1rem; }
+.brand { display: flex; align-items: center; gap: 0.65rem; font: 700 0.95rem var(--font-display); text-decoration: none; }
+.mono { width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font: 700 0.82rem var(--font-display); letter-spacing: 0.02em; }
+.tabs { display: flex; flex-wrap: wrap; gap: 0.3rem; padding: 0.3rem; background: var(--tabbg); border-radius: 999px; }
+.tab { padding: 0.55rem 1.05rem; border-radius: 999px; font-weight: 600; font-size: 0.9rem; color: var(--fg-soft); text-decoration: none; }
+.tab:hover { color: var(--accent); }
+.tab[aria-current="true"] { background: var(--accent); color: var(--accent-ink); }
+
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 2.5rem 3.5rem; align-items: center; padding-top: 2rem; }
+.label { font: 700 0.75rem var(--font-display); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.5rem; }
+.hero h1 { font-weight: 800; font-size: clamp(2.25rem, 5.4vw, 3.75rem); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 1.1rem; }
+.hero-pane.compact { padding-top: 1.75rem; padding-bottom: 0.5rem; }
+.hero-pane.compact h1 { font-size: clamp(2rem, 4.6vw, 3.2rem); }
+.lead { font-size: 1.125rem; color: var(--fg-soft); }
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0 1.75rem; }
+.chip { padding: 0.35rem 0.85rem; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font: 600 0.8rem var(--font-display); }
+.cta { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.plus { margin: 2.75rem 0 0; font: 600 1rem var(--font-display); letter-spacing: 0.5em; color: var(--accent); opacity: 0.55; }
+
+.portrait { width: 100%; max-width: 380px; justify-self: center; display: flex; flex-direction: column; gap: 0.7rem; margin: 0; }
+.portrait .frame { aspect-ratio: 4 / 5; border-radius: 44px; border: 6px solid var(--surface); box-shadow: var(--shadow); }
+.portrait figcaption { font-size: 0.85rem; color: var(--fg-soft); }
+
+/* molduras de imagem */
+.frame {
+  position: relative; overflow: hidden; display: grid; place-items: center;
+  background: linear-gradient(160deg, var(--soft), var(--lilac));
+  color: var(--accent); max-width: 100%;
+}
+.frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ph { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; text-align: center; padding: 1rem; font: 600 0.8rem var(--font-display); color: var(--fg-soft); }
+.frame.has-img .ph { display: none; }
+.actions { display: none; flex-wrap: wrap; gap: 0.5rem; }
+.editing .actions { display: flex; }
+
+/* figuras com legenda ABNT */
+.fig { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+.fig .frame { border-radius: 18px; border: 1px solid var(--line); }
+.fig.boxed { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 1rem; }
+.fig figcaption { font-size: 0.9rem; line-height: 1.45; }
+.fig figcaption strong { font-weight: 700; }
+.src { margin: 0; font-size: 0.8rem; color: var(--muted); }
+.desc { margin: 0; color: var(--fg-soft); font-size: 0.92rem; white-space: pre-line; flex: 1; }
+.chip-area { margin: 0; align-self: flex-start; background: var(--soft); color: var(--accent); font: 700 0.7rem var(--font-display); letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 999px; }
+.r43 { aspect-ratio: 4 / 3; }
+.rwide { aspect-ratio: 16 / 10; }
+.rport { aspect-ratio: 4 / 5; }
+.bezel { width: 100%; max-width: 250px; margin-inline: auto; padding: 10px; background: var(--device); border: 1px solid var(--line); border-radius: 40px; box-shadow: var(--shadow); }
+.bezel .frame { aspect-ratio: 9 / 18; border: 0; border-radius: 30px; }
+.frame video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: var(--device); }
+.vlink { margin: 0; font-size: 0.9rem; font-weight: 600; }
+.vlink a { color: var(--accent); }
+.vurl { display: none; margin: 0; font-size: 0.82rem; color: var(--muted); }
+.editing .vurl { display: block; }
+.editing .vurl [data-edit]:empty::before { content: "cole aqui o endereço do vídeo (https://…)"; }
+
+/* modo edição */
+.editing [data-edit] { outline: 1px dashed var(--edit); outline-offset: 2px; border-radius: 4px; cursor: text; }
+.editing [data-edit]:hover { outline-style: solid; }
+.editing [data-edit]:focus { outline: 2px solid var(--accent); }
+.editing [data-edit]:empty::before { content: "(escreva aqui)"; color: var(--muted); }
+
+/* seções */
+.sec { padding-block: clamp(2.75rem, 6vw, 4.5rem); }
+.alt { background: var(--soft); }
+h2 { font-weight: 800; font-size: clamp(1.6rem, 3.6vw, 2.3rem); line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 1rem; }
+.sec-head { max-width: 62ch; margin-bottom: 2rem; }
+.sec-head p { margin: 0; color: var(--fg-soft); }
+.sec-head h2 { margin-bottom: 0.75rem; }
+.text p { color: var(--fg-soft); }
+
+/* sumário */
+.toc-wrap { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 2rem 3.5rem; align-items: start; }
+.toc-wrap .sec-head { margin-bottom: 0; }
+.toc, .toc ol { list-style: none; margin: 0; padding: 0; }
+.toc { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 1.1rem 1.5rem; }
+.toc ol { padding-left: 2.2rem; }
+.toc a { display: flex; align-items: baseline; gap: 0.6rem; padding-block: 0.4rem; text-decoration: none; }
+.toc a:hover .t { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.toc .n { min-width: 2rem; font: 700 0.8rem var(--font-display); color: var(--accent); font-variant-numeric: tabular-nums; }
+.toc .t { min-width: 0; font-weight: 500; }
+.toc .dots { flex: 1 1 1rem; min-width: 0.5rem; border-bottom: 1.5px dotted var(--dot); transform: translateY(-0.3em); }
+.toc .w { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+
+/* sobre */
+.about { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 2rem 3.5rem; align-items: start; }
+.facts { margin: 0; padding: 1.25rem 1.5rem; background: var(--surface); border: 1px solid var(--line); border-radius: 24px; }
+.facts div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.15rem 1rem; padding-block: 0.75rem; border-bottom: 1px solid var(--line); }
+.facts div:last-child { border-bottom: 0; }
+.facts dt { color: var(--muted); font-size: 0.85rem; }
+.facts dd { margin: 0; font-weight: 600; text-align: right; min-width: 0; }
+
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; margin-top: 2rem; }
+
+/* séries */
+.series { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; align-items: stretch; }
+.serie { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; }
+.serie-h { background: var(--hero-1); padding: 1rem 1.25rem; border-bottom: 1px solid var(--line); }
+.serie-h .label { margin: 0 0 0.25rem; }
+.serie-h h3 { margin: 0; font-size: 1.05rem; font-weight: 700; line-height: 1.3; }
+.serie-b { padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; flex: 1; }
+.serie-b > p { margin: 0; color: var(--fg-soft); font-size: 0.95rem; white-space: pre-line; }
+
+/* mundo do trabalho */
+.work { display: grid; grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr); gap: 2rem 3rem; align-items: start; margin-top: 2rem; }
+
+/* grades de cartões */
+.cards3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+.cards4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; }
+
+/* conjuntos avaliativos */
+.subbar { margin-bottom: 2rem; }
+.subtabs { display: inline-flex; flex-wrap: wrap; gap: 0.3rem; padding: 0.3rem; background: var(--soft); border: 1px solid var(--line); border-radius: 26px; }
+.subtab { padding: 0.55rem 1.1rem; border-radius: 999px; font-weight: 600; font-size: 0.9rem; color: var(--fg-soft); text-decoration: none; }
+.subtab:hover { color: var(--accent); }
+.subtab[aria-current="true"] { background: var(--accent); color: var(--accent-ink); }
+.jump { display: flex; flex-wrap: wrap; gap: 0.4rem 0.5rem; margin: 0 0 0.5rem; }
+.jump a { padding: 0.35rem 0.85rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--accent); font-size: 0.82rem; font-weight: 600; text-decoration: none; }
+.jump a:hover { border-color: var(--accent); }
+.modal { margin-top: 2.5rem; padding-top: 1.75rem; border-top: 1px solid var(--line); }
+.modal h3 { margin: 0 0 1.25rem; font-weight: 800; font-size: 1.3rem; letter-spacing: -0.01em; }
+
+/* futuro */
+.refs { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; max-width: 70ch; }
+.refs li { font-size: 0.95rem; color: var(--fg-soft); }
+.band { position: relative; overflow: hidden; background: linear-gradient(200deg, var(--hero-1), var(--hero-2)); }
+.band .text p { color: var(--fg-soft); }
+footer { padding-block: 1.5rem; color: var(--muted); font-size: 0.85rem; }
+footer p { margin: 0; max-width: none; }
+
+@media (max-width: 1040px) {
+  .cards4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .series, .cards3 { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 820px) {
+  .hero-grid, .about, .toc-wrap, .work { grid-template-columns: minmax(0, 1fr); }
+  .portrait { max-width: 320px; justify-self: start; }
+}
+@media (max-width: 640px) {
+  .pair { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .cards4 { grid-template-columns: minmax(0, 1fr); }
+  .toc a { flex-wrap: wrap; }
+  .toc .dots { display: none; }
+  .toc .w { margin-left: auto; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="ico-img" viewBox="0 0 48 48">
+    <rect x="6" y="9" width="36" height="30" rx="5" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <circle cx="17" cy="20" r="3.5" fill="currentColor"/>
+    <path d="M8 35l10-10 7 7 6-6 9 9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="ico-user" viewBox="0 0 48 48">
+    <circle cx="24" cy="17" r="8" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <path d="M8 42c1.6-8.5 8-12.5 16-12.5S38.4 33.5 40 42" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ico-play" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <path d="M20 16.5v15l12-7.5z" fill="currentColor"/>
+  </symbol>
+</svg>
+
+<div class="note">
+  <div class="wrap">
+    <p>Modelo com conteúdo de exemplo. No modo edição, clique em qualquer texto para escrever e use Trocar imagem para colocar suas fotos. Tudo fica salvo só neste navegador.</p>
+    <div class="note-actions">
+      <button class="mini" type="button" id="edit-toggle" aria-pressed="true">Modo edição: ligado</button>
+      <button class="mini" type="button" id="export-btn">Copiar textos</button>
+    </div>
+  </div>
+  <div class="wrap"><textarea id="export-area" hidden readonly aria-label="Textos alterados em formato JSON"></textarea></div>
+</div>
+
+<header class="hero" id="topo">
+  <span class="blob a" aria-hidden="true"></span>
+  <span class="blob b" aria-hidden="true"></span>
+  <div class="wrap">
+    <nav class="nav" aria-label="Abas do portfólio">
+      <a class="brand" href="#inicio"><span class="mono" aria-hidden="true">MA</span>Maciely Alves</a>
+      <div class="tabs">
+        <a class="tab" href="#inicio" data-nav="inicio">Início</a>
+        <a class="tab" href="#conjuntos" data-nav="conjuntos">Conjuntos avaliativos</a>
+        <a class="tab" href="#futuro" data-nav="futuro">Projeção de futuro</a>
+      </div>
+    </nav>
+
+    <div class="hero-pane" data-hero="inicio">
+      <div class="hero-grid">
+        <div>
+          <p class="label">Portfólio escolar</p>
+          <h1>Maciely Coutinho Alves</h1>
+          <p class="lead" data-edit="hero.lead">Estudante do Ensino Médio Integrado no SESI SENAI. Neste portfólio reúno as atividades, os projetos e os aprendizados do meu ano letivo de 2026.</p>
+          <div class="chips">
+            <span class="chip">3º EMI B</span>
+            <span class="chip">SESI SENAI</span>
+            <span class="chip">2026</span>
+          </div>
+          <div class="cta">
+            <a class="btn btn-primary" href="#sumario">Ver sumário</a>
+            <a class="btn btn-line" href="#conjuntos">Conjuntos avaliativos</a>
+          </div>
+        </div>
+
+        <figure class="portrait" data-slot="perfil" data-alt="Retrato de Maciely Coutinho Alves">
+          <div class="frame" role="img" aria-label="Espaço para a foto de perfil">
+            <div class="ph">
+              <svg width="56" height="56" aria-hidden="true"><use href="#ico-user"/></svg>
+              <span>Sua foto aqui</span>
+            </div>
+          </div>
+          <figcaption>Maciely Coutinho Alves, 3º EMI B, 2026.</figcaption>
+          <div class="actions"><button class="mini" type="button" data-act="pick">Trocar foto</button></div>
+        </figure>
+      </div>
+      <p class="plus" aria-hidden="true">+ + + + + +</p>
+    </div>
+
+    <div class="hero-pane compact" data-hero="conjuntos" hidden>
+      <p class="label">Conjuntos avaliativos</p>
+      <h1>Atividades da 3ª série</h1>
+      <p class="lead">Cada eixo reúne as atividades por modalidade avaliativa e por área do conhecimento. O Mundo SENAI mostra o que fiz na formação técnica.</p>
+    </div>
+
+    <div class="hero-pane compact" data-hero="futuro" hidden>
+      <p class="label">Projeção de futuro</p>
+      <h1>Para onde eu vou</h1>
+      <p class="lead">Meus próximos passos, a conclusão deste percurso e as pessoas a quem eu agradeço.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ============ ABA INÍCIO ============ -->
+  <div id="inicio" data-tab="inicio">
+
+    <section class="sec" id="sumario">
+      <div class="wrap toc-wrap">
+        <div class="sec-head">
+          <p class="label">Sumário</p>
+          <h2>O que você encontra aqui</h2>
+          <p>Clique em um item para ir direto à parte. À direita de cada título está a aba onde ele fica.</p>
+        </div>
+        <ol class="toc">
+          <li><a href="#sobre"><span class="n">1</span><span class="t">Introdução</span><span class="dots"></span><span class="w">Início</span></a></li>
+          <li><a href="#raizes"><span class="n">2</span><span class="t">Minhas raízes: o ensino fundamental</span><span class="dots"></span><span class="w">Início</span></a></li>
+          <li>
+            <a href="#emi"><span class="n">3</span><span class="t">O divisor de águas: EMI</span><span class="dots"></span><span class="w">Início</span></a>
+            <ol>
+              <li><a href="#serie-1"><span class="n">3.1</span><span class="t">1ª série: descobrindo novas possibilidades</span></a></li>
+              <li><a href="#serie-2"><span class="n">3.2</span><span class="t">2ª série: aprofundando os conhecimentos</span></a></li>
+              <li><a href="#serie-3"><span class="n">3.3</span><span class="t">3ª série: a consolidação da aprendizagem</span></a></li>
+            </ol>
+          </li>
+          <li><a href="#trabalho"><span class="n">4</span><span class="t">Mundo do trabalho</span><span class="dots"></span><span class="w">Início</span></a></li>
+          <li><a href="#destaques"><span class="n">5</span><span class="t">Destaques da 3ª série</span><span class="dots"></span><span class="w">Início</span></a></li>
+          <li><a href="#conjuntos"><span class="n">6</span><span class="t">Atividades por área do conhecimento e por eixo avaliativo da 3ª série do ensino médio</span><span class="dots"></span><span class="w">Conjuntos avaliativos</span></a></li>
+          <li><a href="#futuro"><span class="n">7</span><span class="t">Projeção de futuro</span><span class="dots"></span><span class="w">Projeção de futuro</span></a></li>
+          <li><a href="#conclusao"><span class="n">8</span><span class="t">Conclusão</span><span class="dots"></span><span class="w">Projeção de futuro</span></a></li>
+          <li><a href="#referencias"><span class="n">9</span><span class="t">Referências</span><span class="dots"></span><span class="w">Projeção de futuro</span></a></li>
+          <li><a href="#agradecimentos"><span class="n">10</span><span class="t">Agradecimentos</span><span class="dots"></span><span class="w">Projeção de futuro</span></a></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="sec alt" id="sobre">
+      <div class="wrap about">
+        <div class="text">
+          <p class="label">Introdução</p>
+          <h2>Quem sou eu</h2>
+          <p data-edit="sobre.p1">Sou aluna do 3º ano do Ensino Médio Integrado e estou concluindo esta etapa com muita vontade de aprender. Gosto de projetos em grupo, de pesquisar assuntos novos e de transformar ideias em trabalhos que as pessoas conseguem ver e usar.</p>
+          <p data-edit="sobre.p2">Neste ano participei de feiras, seminários e visitas técnicas, e comecei a escrever o meu TCC. Este portfólio mostra o que fiz, com quem fiz e o que aprendi em cada fase da minha trajetória.</p>
+        </div>
+        <dl class="facts">
+          <div><dt>Nome</dt><dd>Maciely Coutinho Alves</dd></div>
+          <div><dt>Turma</dt><dd>3º EMI B</dd></div>
+          <div><dt>Ano letivo</dt><dd>2026</dd></div>
+          <div><dt>Escola</dt><dd>SESI SENAI</dd></div>
+          <div><dt>Curso técnico</dt><dd data-edit="sobre.curso" data-single>Seu curso (exemplo)</dd></div>
+          <div><dt>Interesses</dt><dd data-edit="sobre.interesses" data-single>Tecnologia, leitura, ciências</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="sec" id="raizes">
+      <div class="wrap">
+        <div class="sec-head text">
+          <p class="label">Ensino fundamental</p>
+          <h2>Minhas raízes: o ensino fundamental</h2>
+          <p data-edit="raizes.p1">Minha história escolar começou no ensino fundamental, quando descobri o prazer de aprender com os colegas e professores. Foi ali que construí a base de leitura, escrita e raciocínio que me trouxe até o Ensino Médio Integrado.</p>
+        </div>
+        <div class="text"><p data-edit="raizes.p2">Guardo boas lembranças das primeiras apresentações, dos trabalhos em grupo e dos professores que me incentivaram a continuar estudando.</p></div>
+        <div class="pair">
+          <div data-mount="fig" data-slot="raizes-1" data-title="Turma do 9º ano na conclusão do ensino fundamental" data-desc="Conte aqui o que esta imagem representa e por que ela é importante para a sua história."></div>
+          <div data-mount="fig" data-slot="raizes-2" data-title="Atividade marcante do ensino fundamental" data-desc="Descreva uma atividade, um projeto ou um professor que fez diferença para você."></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec alt" id="emi">
+      <div class="wrap">
+        <div class="sec-head text">
+          <p class="label">Ensino médio integrado</p>
+          <h2>O divisor de águas: EMI</h2>
+          <p data-edit="emi.intro">No Ensino Médio Integrado aprendi a unir o ensino médio com a formação técnica. Cada série trouxe um tipo de desafio diferente.</p>
+        </div>
+        <div class="series">
+          <article class="serie" id="serie-1">
+            <header class="serie-h"><p class="label">1ª série</p><h3 data-edit="serie1.h" data-single>Descobrindo novas possibilidades</h3></header>
+            <div class="serie-b">
+              <p data-edit="serie1.p">Conheci a rotina do EMI, as novas disciplinas e o ambiente do SESI SENAI. Foi o ano de me adaptar e descobrir o que eu queria seguir.</p>
+              <div data-mount="fig" data-slot="serie1" data-title="Atividade marcante da 1ª série" data-desc="Conte em uma ou duas frases o que aconteceu nesta imagem."></div>
+            </div>
+          </article>
+          <article class="serie" id="serie-2">
+            <header class="serie-h"><p class="label">2ª série</p><h3 data-edit="serie2.h" data-single>Aprofundando os conhecimentos</h3></header>
+            <div class="serie-b">
+              <p data-edit="serie2.p">Os conteúdos ficaram mais profundos e comecei a aplicar o que aprendia em projetos práticos, com mais autonomia.</p>
+              <div data-mount="fig" data-slot="serie2" data-title="Atividade marcante da 2ª série" data-desc="Conte em uma ou duas frases o que aconteceu nesta imagem."></div>
+            </div>
+          </article>
+          <article class="serie" id="serie-3">
+            <header class="serie-h"><p class="label">3ª série</p><h3 data-edit="serie3.h" data-single>A consolidação da aprendizagem</h3></header>
+            <div class="serie-b">
+              <p data-edit="serie3.p">Reuni tudo o que aprendi nos anos anteriores em atividades por eixo, no mundo do trabalho e na escrita do TCC.</p>
+              <div data-mount="fig" data-slot="serie3" data-title="Atividade marcante da 3ª série" data-desc="Conte em uma ou duas frases o que aconteceu nesta imagem."></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="trabalho">
+      <div class="wrap">
+        <div class="sec-head text">
+          <p class="label">Mundo do trabalho</p>
+          <h2>Mundo do trabalho</h2>
+          <p data-edit="trabalho.p">No Mundo do Trabalho aprendi a organizar minha rotina, planejar o tempo e me preparar para o mercado. Aqui mostro um vídeo sobre a minha experiência e a minha rotina semanal.</p>
+        </div>
+        <div class="work">
+          <div data-mount="fig" data-slot="trabalho-video" data-video="1" data-device="1" data-title="Vídeo sobre minha experiência no mundo do trabalho" data-desc="Explique o que o vídeo mostra e o que você aprendeu com essa experiência."></div>
+          <div data-mount="fig" data-slot="trabalho-rotina" data-ratio="rwide" data-title="Planilha da rotina semanal de estudos e trabalho" data-desc="Explique como você montou sua rotina: horários, cores, prioridades e o que aprendeu com isso."></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec alt" id="destaques">
+      <div class="wrap">
+        <div class="sec-head text">
+          <p class="label">3ª série</p>
+          <h2>Destaques da 3ª série</h2>
+          <p data-edit="destaques.p">Os momentos que mais marcaram o meu último ano no EMI.</p>
+        </div>
+        <div class="cards3">
+          <div data-mount="fig" data-boxed="1" data-slot="dest-1" data-title="Destaque 1" data-desc="Conte o que aconteceu, quando foi e por que esse momento foi especial."></div>
+          <div data-mount="fig" data-boxed="1" data-slot="dest-2" data-title="Destaque 2" data-desc="Conte o que aconteceu, quando foi e por que esse momento foi especial."></div>
+          <div data-mount="fig" data-boxed="1" data-slot="dest-3" data-title="Destaque 3" data-desc="Conte o que aconteceu, quando foi e por que esse momento foi especial."></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ ABA CONJUNTOS AVALIATIVOS ============ -->
+  <div id="conjuntos" data-tab="conjuntos" hidden>
+    <section class="sec">
+      <div class="wrap">
+        <div class="subbar" id="conjuntos-bar">
+          <div class="subtabs" aria-label="Eixos avaliativos">
+            <a class="subtab" href="#eixo-1" data-subnav="eixo-1">Eixo 1</a>
+            <a class="subtab" href="#eixo-2" data-subnav="eixo-2">Eixo 2</a>
+            <a class="subtab" href="#eixo-3" data-subnav="eixo-3">Eixo 3</a>
+            <a class="subtab" href="#eixo-4" data-subnav="eixo-4">Eixo 4</a>
+            <a class="subtab" href="#mundo-senai" data-subnav="mundo-senai">Mundo SENAI</a>
+          </div>
+        </div>
+        <div id="subpanels"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ ABA PROJEÇÃO DE FUTURO ============ -->
+  <div id="futuro" data-tab="futuro" hidden>
+    <section class="sec">
+      <div class="wrap">
+        <div class="sec-head text">
+          <p class="label">Projeção de futuro</p>
+          <h2>Meus próximos passos</h2>
+          <p data-edit="futuro.p">Depois do 3º EMI B quero continuar estudando, fazer o ENEM e seguir carreira na área de tecnologia. Também pretendo manter o hábito de planejar minha rotina e de buscar novos cursos para crescer na profissão.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec alt" id="conclusao">
+      <div class="wrap">
+        <div class="sec-head text">
+          <p class="label">Conclusão</p>
+          <h2>Conclusão</h2>
+          <p data-edit="conclusao.p">Chegar ao fim do EMI mostrou que cada etapa teve um papel: o ensino fundamental criou a base, a 1ª série abriu possibilidades, a 2ª aprofundou os conhecimentos e a 3ª reuniu tudo isso em projetos e no TCC. Levo desse caminho a certeza de que aprender é um processo coletivo e contínuo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="referencias">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="label">Referências</p>
+          <h2>Referências</h2>
+          <p>Modelos no padrão ABNT, em ordem alfabética. Troque pelos livros, artigos e sites que você usou.</p>
+        </div>
+        <ul class="refs">
+          <li data-edit="ref.1">SOBRENOME, Nome. Título da obra: subtítulo. Edição. Cidade: Editora, ano.</li>
+          <li data-edit="ref.2">SOBRENOME, Nome. Título do artigo. Nome do site, ano. Disponível em: endereço do site. Acesso em: dia mês. ano.</li>
+          <li data-edit="ref.3">INSTITUIÇÃO. Título do documento. Cidade: Instituição, ano.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="sec band" id="agradecimentos">
+      <span class="blob c" aria-hidden="true"></span>
+      <div class="wrap">
+        <div class="sec-head text">
+          <p class="label">Agradecimentos</p>
+          <h2>Agradecimentos</h2>
+          <p data-edit="agradecimentos.p">Agradeço à minha família, aos professores e aos colegas da turma do 3º EMI B pelo apoio e pelo aprendizado compartilhado neste percurso.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Portfólio escolar de Maciely Coutinho Alves · 3º EMI B · SESI SENAI · 2026</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var SRC = 'Fonte: Arquivo pessoal da autora (2026).';
+  var TEXT_KEY = 'portfolio-maciely-textos';
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  /* ---------- figura com legenda ABNT ---------- */
+  function figHTML(o) {
+    var video = !!o.video;
+    var frame = '<div class="frame ' + (o.ratio || 'r43') + '" role="img" aria-label="Espaço para ' + (video ? 'o vídeo' : 'a imagem') + '">' +
+      '<div class="ph"><svg width="44" height="44" aria-hidden="true"><use href="#' + (video ? 'ico-play' : 'ico-img') + '"/></svg><span>' + (video ? 'Seu vídeo aqui' : 'Imagem') + '</span></div></div>';
+    if (o.device) frame = '<div class="bezel">' + frame + '</div>';
+    return '<figure class="fig' + (o.boxed ? ' boxed' : '') + (video ? ' vid' : '') + '" data-slot="' + esc(o.slot) + '"' + (video ? ' data-kind="video"' : '') + '>' +
+      (o.chip ? '<p class="chip-area">' + esc(o.chip) + '</p>' : '') +
+      '<figcaption><strong class="figno">Figura</strong> – <span data-edit="' + esc(o.slot) + '.t" data-single>' + esc(o.title) + '</span></figcaption>' +
+      frame +
+      '<p class="src"><span data-edit="' + esc(o.slot) + '.s" data-single>' + esc(o.src || SRC) + '</span></p>' +
+      '<p class="desc" data-edit="' + esc(o.slot) + '.d">' + esc(o.desc) + '</p>' +
+      '<div class="actions"><button class="mini" type="button" data-act="pick">' + (video ? 'Escolher vídeo' : 'Trocar imagem') + '</button>' +
+      '<button class="mini" type="button" data-act="copy">Copiar legenda</button></div>' +
+      (video ? '<p class="vlink" hidden><a href="#" target="_blank" rel="noopener noreferrer">Assistir ao vídeo em outra aba</a></p>' +
+        '<p class="vurl">Link do vídeo (opcional): <span data-edit="' + esc(o.slot) + '.u" data-single></span></p>' : '') +
+      '</figure>';
+  }
+
+  /* ---------- eixos e Mundo SENAI ---------- */
+  var AREAS = [['ch', 'Ciências humanas'], ['cn', 'Ciências da natureza'], ['li', 'Linguagens'], ['ma', 'Matemática']];
+  var MODS = [['autoria', 'Autoria'], ['resolucao', 'Resolução de problemas'], ['diagnostica', 'Diagnóstica'], ['projeto', 'Projeto de aprendizagem'], ['orientada', 'Atividade orientada']];
+  var UNITS = [['prog', 'Programação de aplicativos'], ['model', 'Modelagem de sistemas'], ['dev', 'Desenvolvimento de sistemas']];
+  var PH_DESC = 'Descreva o que você fez, como fez e o que aprendeu nesta atividade.';
+
+  var html = '';
+  for (var e = 1; e <= 4; e++) {
+    html += '<div class="sub" id="eixo-' + e + '" data-sub="eixo-' + e + '"' + (e === 1 ? '' : ' hidden') + '>';
+    html += '<div class="sec-head text"><p class="label">Conjunto avaliativo</p><h2>Eixo ' + e + '</h2>' +
+      '<p data-edit="eixo' + e + '.intro">Escreva aqui uma breve apresentação deste eixo e das atividades realizadas em cada modalidade.</p></div>';
+    html += '<nav class="jump" aria-label="Modalidades do eixo ' + e + '">';
+    MODS.forEach(function (m) { html += '<a href="#eixo-' + e + '-' + m[0] + '">' + m[1] + '</a>'; });
+    html += '</nav>';
+    MODS.forEach(function (m) {
+      html += '<section class="modal" id="eixo-' + e + '-' + m[0] + '"><h3>' + m[1] + '</h3><div class="cards4">';
+      AREAS.forEach(function (a) {
+        html += figHTML({ slot: 'e' + e + '-' + m[0] + '-' + a[0], chip: a[1], boxed: true, title: 'Título da atividade', desc: PH_DESC });
+      });
+      html += '</div></section>';
+    });
+    html += '</div>';
+  }
+  html += '<div class="sub" id="mundo-senai" data-sub="mundo-senai" hidden>';
+  html += '<div class="sec-head text"><p class="label">Formação técnica</p><h2>Mundo SENAI</h2>' +
+    '<p data-edit="senai.intro">Escreva aqui uma breve apresentação do que você aprendeu na formação técnica do SENAI.</p></div>';
+  html += '<div class="cards3">';
+  UNITS.forEach(function (u) {
+    html += figHTML({ slot: 's-' + u[0], chip: u[1], boxed: true, title: 'Título da atividade', desc: PH_DESC });
+  });
+  html += '</div></div>';
+  document.getElementById('subpanels').innerHTML = html;
+
+  document.querySelectorAll('[data-mount="fig"]').forEach(function (m) {
+    var d = m.dataset;
+    m.insertAdjacentHTML('beforebegin', figHTML({
+      slot: d.slot, title: d.title, desc: d.desc, ratio: d.ratio, boxed: !!d.boxed, device: !!d.device, video: !!d.video, chip: d.chip, src: d.src
+    }));
+    m.remove();
+  });
+
+  /* numeração sequencial das figuras */
+  var nFig = 0, nVid = 0;
+  document.querySelectorAll('figure.fig').forEach(function (f) {
+    var vid = f.classList.contains('vid');
+    var n = vid ? 'Vídeo ' + (++nVid) : 'Figura ' + (++nFig);
+    f.querySelector('.figno').textContent = n;
+    var fr = f.querySelector('.frame');
+    if (fr) fr.setAttribute('aria-label', 'Espaço para ' + (vid ? 'o ' : 'a imagem da ') + n);
+  });
+
+  /* ---------- copiar ---------- */
+  function flash(btn, text) {
+    var old = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', old);
+    btn.textContent = text;
+    setTimeout(function () { btn.textContent = old; }, 1800);
+  }
+  function copyText(text, btn, onFail) {
+    function fail() { flash(btn, 'Não foi possível copiar'); if (onFail) onFail(); }
+    try {
+      navigator.clipboard.writeText(text).then(function () { flash(btn, 'Copiado!'); }, fail);
+    } catch (err) { fail(); }
+  }
+
+  /* ---------- imagens (IndexedDB, com reserva em localStorage) ---------- */
+  var db = null;
+  function altFor(slot) {
+    var t = slot.querySelector('[data-edit$=".t"]');
+    return t ? t.textContent.trim() : (slot.getAttribute('data-alt') || '');
+  }
+  function showImage(slot, src) {
+    var frame = slot.querySelector('.frame');
+    if (!frame) return;
+    var img = frame.querySelector('img');
+    if (!img) { img = document.createElement('img'); frame.appendChild(img); }
+    img.alt = altFor(slot);
+    img.src = src;
+    frame.classList.add('has-img');
+    frame.removeAttribute('role');
+    frame.removeAttribute('aria-label');
+  }
+  function showVideo(slot, src) {
+    var frame = slot.querySelector('.frame');
+    if (!frame) return;
+    var v = frame.querySelector('video');
+    if (!v) {
+      v = document.createElement('video');
+      v.controls = true;
+      v.setAttribute('playsinline', '');
+      v.preload = 'metadata';
+      frame.appendChild(v);
+    } else if (v.dataset.url) {
+      URL.revokeObjectURL(v.dataset.url);
+    }
+    v.dataset.url = src;
+    v.src = src;
+    v.setAttribute('aria-label', altFor(slot));
+    frame.classList.add('has-img');
+    frame.removeAttribute('role');
+    frame.removeAttribute('aria-label');
+  }
+  function saveImage(id, url, done) {
+    if (db) {
+      try {
+        var tx = db.transaction('img', 'readwrite');
+        tx.objectStore('img').put(url, id);
+        tx.oncomplete = function () { done(true); };
+        tx.onerror = tx.onabort = function () { done(false); };
+        return;
+      } catch (err) {}
+    }
+    if (typeof url !== 'string') { done(false); return; }
+    try { localStorage.setItem('pm-img-' + id, url); done(true); } catch (err2) { done(false); }
+  }
+  function loadImages() {
+    document.querySelectorAll('[data-slot]').forEach(function (slot) {
+      try {
+        var v = localStorage.getItem('pm-img-' + slot.getAttribute('data-slot'));
+        if (v) showImage(slot, v);
+      } catch (err) {}
+    });
+    if (!db) return;
+    try {
+      var req = db.transaction('img').objectStore('img').openCursor();
+      req.onsuccess = function (ev) {
+        var c = ev.target.result;
+        if (!c) return;
+        var slot = document.querySelector('[data-slot="' + c.key + '"]');
+        if (slot) {
+          if (typeof c.value === 'string') showImage(slot, c.value);
+          else showVideo(slot, URL.createObjectURL(c.value));
+        }
+        c.continue();
+      };
+    } catch (err) {}
+  }
+  function openDB(cb) {
+    try {
+      var r = indexedDB.open('portfolio-maciely', 1);
+      r.onupgradeneeded = function () { r.result.createObjectStore('img'); };
+      r.onsuccess = function () { db = r.result; cb(); };
+      r.onerror = function () { cb(); };
+    } catch (err) { cb(); }
+  }
+
+  document.querySelectorAll('[data-slot]').forEach(function (slot) {
+    var id = slot.getAttribute('data-slot');
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = slot.getAttribute('data-kind') === 'video' ? 'video/*' : 'image/*';
+    input.hidden = true;
+    input.id = 'file-' + id;
+    slot.appendChild(input);
+
+    var pick = slot.querySelector('[data-act="pick"]');
+    pick.addEventListener('click', function () { input.click(); });
+
+    input.addEventListener('change', function () {
+      var file = input.files && input.files[0];
+      if (!file) return;
+      if (slot.getAttribute('data-kind') === 'video') {
+        showVideo(slot, URL.createObjectURL(file));
+        saveImage(id, file, function (ok) { if (!ok) flash(pick, 'Vídeo não foi salvo'); });
+        input.value = '';
+        return;
+      }
+      var reader = new FileReader();
+      reader.onload = function () {
+        var im = new Image();
+        im.onload = function () {
+          var k = Math.min(1, 1400 / Math.max(im.width, im.height));
+          var c = document.createElement('canvas');
+          c.width = Math.round(im.width * k);
+          c.height = Math.round(im.height * k);
+          c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+          var url = c.toDataURL('image/jpeg', 0.85);
+          showImage(slot, url);
+          saveImage(id, url, function (ok) { if (!ok) flash(pick, 'Imagem não foi salva'); });
+        };
+        im.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+      input.value = '';
+    });
+
+    var copyBtn = slot.querySelector('[data-act="copy"]');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+        var no = slot.querySelector('.figno').textContent.trim();
+        var t = slot.querySelector('[data-edit$=".t"]').textContent.trim();
+        var s = slot.querySelector('[data-edit$=".s"]').textContent.trim();
+        copyText(no + ' – ' + t + '. ' + s, copyBtn);
+      });
+    }
+  });
+  openDB(loadImages);
+
+  /* ---------- textos editáveis ---------- */
+  var store = {};
+  try { store = JSON.parse(localStorage.getItem(TEXT_KEY) || '{}') || {}; } catch (err) { store = {}; }
+  function persist() { try { localStorage.setItem(TEXT_KEY, JSON.stringify(store)); } catch (err) {} }
+
+  var fields = document.querySelectorAll('[data-edit]');
+  fields.forEach(function (el) {
+    var key = el.getAttribute('data-edit');
+    el.setAttribute('data-def', el.textContent.trim());
+    if (Object.prototype.hasOwnProperty.call(store, key)) el.textContent = store[key];
+    el.addEventListener('input', function () {
+      store[key] = el.innerText.replace(/\n+$/, '');
+      persist();
+    });
+    el.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter' && el.hasAttribute('data-single')) ev.preventDefault();
+    });
+  });
+  document.addEventListener('paste', function (ev) {
+    var t = ev.target && ev.target.closest ? ev.target.closest('[data-edit]') : null;
+    if (!t || !document.body.classList.contains('editing')) return;
+    ev.preventDefault();
+    var txt = (ev.clipboardData || window.clipboardData).getData('text/plain');
+    if (t.hasAttribute('data-single')) txt = txt.replace(/\s*\n\s*/g, ' ');
+    try { document.execCommand('insertText', false, txt); } catch (err) {}
+  });
+
+  function syncLinks() {
+    document.querySelectorAll('figure[data-kind="video"]').forEach(function (slot) {
+      var u = slot.querySelector('[data-edit$=".u"]');
+      var box = slot.querySelector('.vlink');
+      if (!u || !box) return;
+      var val = u.textContent.trim();
+      if (/^https?:\/\/\S+$/i.test(val)) { box.querySelector('a').href = val; box.hidden = false; }
+      else box.hidden = true;
+    });
+  }
+  document.addEventListener('input', syncLinks);
+  syncLinks();
+
+  var toggle = document.getElementById('edit-toggle');
+  function setEditing(on) {
+    document.body.classList.toggle('editing', on);
+    toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+    toggle.textContent = 'Modo edição: ' + (on ? 'ligado' : 'desligado');
+    fields.forEach(function (el) {
+      if (on) el.setAttribute('contenteditable', 'true'); else el.removeAttribute('contenteditable');
+    });
+  }
+  toggle.addEventListener('click', function () { setEditing(toggle.getAttribute('aria-pressed') !== 'true'); });
+  setEditing(true);
+
+  var area = document.getElementById('export-area');
+  var exportBtn = document.getElementById('export-btn');
+  exportBtn.addEventListener('click', function () {
+    var out = {};
+    fields.forEach(function (el) {
+      var key = el.getAttribute('data-edit');
+      if (Object.prototype.hasOwnProperty.call(store, key) && store[key] !== el.getAttribute('data-def')) out[key] = store[key];
+    });
+    if (!Object.keys(out).length) { flash(exportBtn, 'Nenhum texto alterado'); area.hidden = true; return; }
+    var json = JSON.stringify(out, null, 1);
+    area.value = json;
+    copyText(json, exportBtn, function () { area.hidden = false; area.focus(); area.select(); });
+  });
+
+  /* ---------- abas e navegação por hash ---------- */
+  var curSub = 'eixo-1';
+  function showTab(name) {
+    document.querySelectorAll('[data-tab]').forEach(function (p) { p.hidden = p.getAttribute('data-tab') !== name; });
+    document.querySelectorAll('[data-hero]').forEach(function (p) { p.hidden = p.getAttribute('data-hero') !== name; });
+    document.querySelectorAll('[data-nav]').forEach(function (a) {
+      if (a.getAttribute('data-nav') === name) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+    });
+  }
+  function showSub(name) {
+    curSub = name;
+    document.querySelectorAll('[data-sub]').forEach(function (p) { p.hidden = p.getAttribute('data-sub') !== name; });
+    document.querySelectorAll('[data-subnav]').forEach(function (a) {
+      if (a.getAttribute('data-subnav') === name) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+    });
+  }
+  function route(scroll) {
+    var id = '';
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch (err) {}
+    var el = id ? document.getElementById(id) : null;
+    if (!el) { showTab('inicio'); showSub(curSub); return; }
+    var panel = el.closest('[data-tab]');
+    showTab(panel ? panel.getAttribute('data-tab') : 'inicio');
+    var sub = el.closest('[data-sub]');
+    showSub(sub ? sub.getAttribute('data-sub') : curSub);
+    if (!scroll) return;
+    if (el.hasAttribute('data-tab')) { window.scrollTo(0, 0); return; }
+    if (el.hasAttribute('data-sub')) { document.getElementById('conjuntos-bar').scrollIntoView(); return; }
+    el.scrollIntoView();
+  }
+  window.addEventListener('hashchange', function () { route(true); });
+  route(!!location.hash);
+})();
+</script>
+
+</body></html>
