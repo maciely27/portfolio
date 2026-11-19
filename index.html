@@ -90,7 +90,6 @@ a { color: inherit; }
 .note .wrap { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; flex-wrap: wrap; padding-block: 0.6rem; }
 .note p { margin: 0; flex: 1 1 340px; min-width: 0; }
 .note-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-#export-area { display: block; width: 100%; min-height: 6rem; margin-top: 0.5rem; padding: 0.6rem; font: 0.8rem/1.4 ui-monospace, Menlo, monospace; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 12px; }
 
 /* botões */
 .btn, .mini { font-family: var(--font-body); cursor: pointer; text-decoration: none; }
@@ -181,7 +180,7 @@ a { color: inherit; }
 .vlink a { color: var(--accent); }
 .vurl { display: none; margin: 0; font-size: 0.82rem; color: var(--muted); }
 .editing .vurl { display: block; }
-.editing .vurl [data-edit]:empty::before { content: "cole aqui o endereço do vídeo (https://…)"; }
+.editing .vurl [data-edit]:empty::before { content: "link do vídeo (https://…) ou arquivo (videos/nome.mp4)"; }
 
 /* modo edição */
 .editing [data-edit] { outline: 1px dashed var(--edit); outline-offset: 2px; border-radius: 4px; cursor: text; }
@@ -257,6 +256,30 @@ h2 { font-weight: 800; font-size: clamp(1.6rem, 3.6vw, 2.3rem); line-height: 1.1
 footer { padding-block: 1.5rem; color: var(--muted); font-size: 0.85rem; }
 footer p { margin: 0; max-width: none; }
 
+/* trava do modo editor */
+footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
+.lock-open { appearance: none; background: none; border: 0; padding: 0.3rem 0.5rem; font: inherit; font-size: 0.8rem; color: var(--muted); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; border-radius: 6px; }
+.lock-open:hover { color: var(--accent); }
+.lock { width: min(92vw, 360px); padding: 1.5rem; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow); }
+.lock::backdrop { background: rgba(22, 14, 34, 0.55); }
+.lock h2 { font-size: 1.3rem; margin: 0 0 0.4rem; }
+.lock p { margin: 0 0 1rem; font-size: 0.92rem; color: var(--fg-soft); }
+.lock-label { display: block; margin-bottom: 0.35rem; font-size: 0.85rem; font-weight: 600; }
+.lock input { width: 100%; padding: 0.7rem 0.9rem; font: 500 1rem var(--font-body); background: var(--bg); color: var(--fg); border: 1.5px solid var(--line); border-radius: 12px; }
+.lock .lock-msg { margin: 0.6rem 0 0; font-weight: 600; color: #B3261E; }
+:root[data-theme="dark"] .lock .lock-msg { color: #FFB4AB; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .lock .lock-msg { color: #FFB4AB; } }
+.lock-actions { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1.1rem; }
+
+/* ajuste de imagem */
+.adjust-panel { display: none; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; padding: 0.6rem 0.75rem; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; font-size: 0.8rem; color: var(--fg-soft); }
+.editing .adjusting .adjust-panel { display: flex; }
+.adjust-panel label { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; }
+.adjust-panel input[type="range"] { width: 7.5rem; accent-color: var(--accent); }
+.adjust-tip { flex-basis: 100%; color: var(--muted); }
+.editing .adjusting .frame { cursor: grab; touch-action: none; outline: 2px dashed var(--accent); outline-offset: 2px; }
+.editing .adjusting .frame:active { cursor: grabbing; }
+
 @media (max-width: 1040px) {
   .cards4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -296,15 +319,16 @@ footer p { margin: 0; max-width: none; }
   </symbol>
 </svg>
 
-<div class="note">
+<div class="note" id="editor-bar" hidden>
   <div class="wrap">
-    <p>Modelo com conteúdo de exemplo. No modo edição, clique em qualquer texto para escrever e use Trocar imagem para colocar suas fotos. Tudo fica salvo só neste navegador.</p>
+    <p>Modo editor liberado. Clique em qualquer texto para escrever e use Trocar imagem e Ajustar imagem nas figuras. O que você muda fica só neste navegador até exportar e publicar o arquivo dados.json.</p>
     <div class="note-actions">
-      <button class="mini" type="button" id="edit-toggle" aria-pressed="true">Modo edição: ligado</button>
-      <button class="mini" type="button" id="export-btn">Copiar textos</button>
+      <button class="mini" type="button" id="edit-toggle" aria-pressed="false">Modo edição: desligado</button>
+      <button class="mini" type="button" id="export-btn">Exportar dados</button>
+      <button class="mini" type="button" id="exit-btn">Sair do editor</button>
     </div>
   </div>
-  <div class="wrap"><textarea id="export-area" hidden readonly aria-label="Textos alterados em formato JSON"></textarea></div>
+  <div class="wrap"><p id="export-msg" hidden>Coloque o dados.json baixado na pasta do projeto, ao lado do index.html (substituindo o antigo), e faça commit e push no GitHub. Em alguns minutos ele aparece em todos os aparelhos.</p></div>
 </div>
 
 <header class="hero" id="topo">
@@ -345,7 +369,7 @@ footer p { margin: 0; max-width: none; }
             </div>
           </div>
           <figcaption>Maciely Coutinho Alves, 3º EMI B, 2026.</figcaption>
-          <div class="actions"><button class="mini" type="button" data-act="pick">Trocar foto</button></div>
+          <div class="actions"><button class="mini" type="button" data-act="pick">Trocar foto</button><button class="mini" type="button" data-act="adjust" aria-pressed="false">Ajustar foto</button></div>
         </figure>
       </div>
       <p class="plus" aria-hidden="true">+ + + + + +</p>
@@ -566,8 +590,23 @@ footer p { margin: 0; max-width: none; }
 <footer>
   <div class="wrap">
     <p>Portfólio escolar de Maciely Coutinho Alves · 3º EMI B · SESI SENAI · 2026</p>
+    <button class="lock-open" type="button" id="lock-open">Área do editor</button>
   </div>
 </footer>
+
+<dialog class="lock" id="lock-dlg" aria-labelledby="lock-title">
+  <form id="lock-form" autocomplete="off">
+    <h2 id="lock-title">Área do editor</h2>
+    <p>Digite a senha para liberar a edição do portfólio.</p>
+    <label class="lock-label" for="lock-pass">Senha</label>
+    <input id="lock-pass" type="password" autocomplete="off">
+    <p class="lock-msg" id="lock-msg" role="alert" hidden>Senha incorreta. Tente de novo.</p>
+    <div class="lock-actions">
+      <button class="btn btn-line" type="button" id="lock-cancel">Cancelar</button>
+      <button class="btn btn-primary" type="submit">Entrar</button>
+    </div>
+  </form>
+</dialog>
 
 <script>
 (function () {
@@ -591,9 +630,10 @@ footer p { margin: 0; max-width: none; }
       '<p class="src"><span data-edit="' + esc(o.slot) + '.s" data-single>' + esc(o.src || SRC) + '</span></p>' +
       '<p class="desc" data-edit="' + esc(o.slot) + '.d">' + esc(o.desc) + '</p>' +
       '<div class="actions"><button class="mini" type="button" data-act="pick">' + (video ? 'Escolher vídeo' : 'Trocar imagem') + '</button>' +
+      (video ? '' : '<button class="mini" type="button" data-act="adjust" aria-pressed="false">Ajustar imagem</button>') +
       '<button class="mini" type="button" data-act="copy">Copiar legenda</button></div>' +
       (video ? '<p class="vlink" hidden><a href="#" target="_blank" rel="noopener noreferrer">Assistir ao vídeo em outra aba</a></p>' +
-        '<p class="vurl">Link do vídeo (opcional): <span data-edit="' + esc(o.slot) + '.u" data-single></span></p>' : '') +
+        '<p class="vurl">Vídeo para publicar (link ou arquivo, ex.: videos/rotina.mp4): <span data-edit="' + esc(o.slot) + '.u" data-single></span></p>' : '') +
       '</figure>';
   }
 
@@ -675,6 +715,7 @@ footer p { margin: 0; max-width: none; }
     if (!img) { img = document.createElement('img'); frame.appendChild(img); }
     img.alt = altFor(slot);
     img.src = src;
+    applyAdjust(slot);
     frame.classList.add('has-img');
     frame.removeAttribute('role');
     frame.removeAttribute('aria-label');
@@ -712,28 +753,185 @@ footer p { margin: 0; max-width: none; }
     if (typeof url !== 'string') { done(false); return; }
     try { localStorage.setItem('pm-img-' + id, url); done(true); } catch (err2) { done(false); }
   }
-  function loadImages() {
-    document.querySelectorAll('[data-slot]').forEach(function (slot) {
-      try {
-        var v = localStorage.getItem('pm-img-' + slot.getAttribute('data-slot'));
-        if (v) showImage(slot, v);
-      } catch (err) {}
+  function readLocal(cb) {
+    var imgs = {}, vids = {};
+    Object.keys(slotMap).forEach(function (id) {
+      try { var v = localStorage.getItem('pm-img-' + id); if (v) imgs[id] = v; } catch (err) {}
     });
-    if (!db) return;
+    if (!db) { cb(imgs, vids); return; }
     try {
       var req = db.transaction('img').objectStore('img').openCursor();
       req.onsuccess = function (ev) {
         var c = ev.target.result;
-        if (!c) return;
-        var slot = document.querySelector('[data-slot="' + c.key + '"]');
-        if (slot) {
-          if (typeof c.value === 'string') showImage(slot, c.value);
-          else showVideo(slot, URL.createObjectURL(c.value));
-        }
+        if (!c) { cb(imgs, vids); return; }
+        if (typeof c.value === 'string') imgs[c.key] = c.value; else vids[c.key] = c.value;
         c.continue();
       };
-    } catch (err) {}
+      req.onerror = function () { cb(imgs, vids); };
+    } catch (err) { cb(imgs, vids); }
   }
+
+  /* ---------- dados publicados (dados.json) e rascunho local ---------- */
+  var ADJ_KEY = 'portfolio-maciely-ajustes';
+  var pub = { textos: {}, imagens: {}, ajustes: {} };
+  var adjLoc = {};
+  try { adjLoc = JSON.parse(localStorage.getItem(ADJ_KEY) || '{}') || {}; } catch (err) { adjLoc = {}; }
+  var editorOn = false, booted = false, wantEditor = false, adjusting = null;
+  var slotMap = {};
+  document.querySelectorAll('[data-slot]').forEach(function (s) { slotMap[s.getAttribute('data-slot')] = s; });
+
+  function loadPublished(cb) {
+    try {
+      fetch('dados.json', { cache: 'no-cache' })
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .then(function (d) {
+          if (!d || typeof d !== 'object') return;
+          pub = { textos: d.textos || {}, imagens: d.imagens || {}, ajustes: d.ajustes || {} };
+        })
+        .catch(function () {})
+        .then(cb);
+    } catch (err) { cb(); }
+  }
+  function applyPublished() {
+    fields.forEach(function (el) {
+      var k = el.getAttribute('data-edit');
+      if (typeof pub.textos[k] === 'string') el.textContent = pub.textos[k];
+    });
+    Object.keys(pub.imagens).forEach(function (id) {
+      if (slotMap[id] && typeof pub.imagens[id] === 'string') showImage(slotMap[id], pub.imagens[id]);
+    });
+    syncLinks();
+  }
+  function applyLocal(done) {
+    fields.forEach(function (el) {
+      var k = el.getAttribute('data-edit');
+      if (Object.prototype.hasOwnProperty.call(store, k)) el.textContent = store[k];
+    });
+    syncLinks();
+    readLocal(function (imgs, vids) {
+      Object.keys(imgs).forEach(function (id) { if (slotMap[id]) showImage(slotMap[id], imgs[id]); });
+      Object.keys(vids).forEach(function (id) { if (slotMap[id]) showVideo(slotMap[id], URL.createObjectURL(vids[id])); });
+      Object.keys(adjLoc).forEach(function (id) { if (slotMap[id]) applyAdjust(slotMap[id]); });
+      done();
+    });
+  }
+  function boot() {
+    openDB(function () {
+      loadPublished(function () {
+        applyPublished();
+        booted = true;
+        var saved = false;
+        try { saved = sessionStorage.getItem('pm-editor') === '1'; } catch (err) {}
+        if (saved || wantEditor) enterEditor();
+      });
+    });
+  }
+
+  /* ---------- ajuste de imagem (posição, zoom, imagem inteira) ---------- */
+  function defAdj() { return { z: 1, x: 0, y: 0, fit: 'cover' }; }
+  function isDef(a) { return !a || (+a.z === 1 && !+a.x && !+a.y && a.fit !== 'contain'); }
+  function getAdj(id) {
+    var a = (editorOn && adjLoc[id]) || pub.ajustes[id] || defAdj();
+    return { z: +a.z || 1, x: +a.x || 0, y: +a.y || 0, fit: a.fit === 'contain' ? 'contain' : 'cover' };
+  }
+  function saveAdj() { try { localStorage.setItem(ADJ_KEY, JSON.stringify(adjLoc)); } catch (err) {} }
+  function applyAdjust(slot) {
+    var img = slot.querySelector('.frame img');
+    if (!img) return;
+    var a = getAdj(slot.getAttribute('data-slot'));
+    img.style.objectFit = a.fit;
+    img.style.transform = isDef(a) ? '' : 'translate(' + a.x + '%,' + a.y + '%) scale(' + a.z + ')';
+  }
+  function clampAdj(slot, a) {
+    var fr = slot.querySelector('.frame'), im = fr && fr.querySelector('img');
+    if (!im || !im.naturalWidth || !fr.clientHeight) return a;
+    var ar = im.naturalWidth / im.naturalHeight, f = fr.clientWidth / fr.clientHeight, cv = a.fit !== 'contain';
+    var rw = cv ? Math.max(1, ar / f) : Math.min(1, ar / f);
+    var rh = cv ? Math.max(1, f / ar) : Math.min(1, f / ar);
+    var mx = Math.abs(rw * a.z - 1) * 50, my = Math.abs(rh * a.z - 1) * 50;
+    a.x = Math.round(Math.max(-mx, Math.min(mx, a.x)) * 100) / 100;
+    a.y = Math.round(Math.max(-my, Math.min(my, a.y)) * 100) / 100;
+    return a;
+  }
+  function setAdj(slot, a) {
+    a.z = Math.max(1, Math.min(3, a.z));
+    adjLoc[slot.getAttribute('data-slot')] = clampAdj(slot, a);
+    saveAdj(); applyAdjust(slot); syncPanel(slot);
+  }
+  function syncPanel(slot) {
+    var p = slot.querySelector('.adjust-panel');
+    if (!p) return;
+    var a = getAdj(slot.getAttribute('data-slot'));
+    p.querySelector('[data-adj="z"]').value = a.z;
+    p.querySelector('[data-adj="fit"]').setAttribute('aria-pressed', a.fit === 'contain' ? 'true' : 'false');
+  }
+  function stopAdjust() {
+    if (!adjusting) return;
+    var b = adjusting.querySelector('[data-act="adjust"]'), fr = adjusting.querySelector('.frame');
+    adjusting.classList.remove('adjusting');
+    if (b) b.setAttribute('aria-pressed', 'false');
+    if (fr) fr.removeAttribute('tabindex');
+    adjusting = null;
+  }
+  function setupAdjust(slot) {
+    var btn = slot.querySelector('[data-act="adjust"]');
+    if (!btn) return;
+    var fr = slot.querySelector('.frame'), id = slot.getAttribute('data-slot'), drag = null;
+    var p = document.createElement('div');
+    p.className = 'adjust-panel';
+    p.innerHTML = '<label>Zoom <input type="range" min="1" max="3" step="0.05" value="1" data-adj="z"></label>' +
+      '<button class="mini" type="button" data-adj="fit" aria-pressed="false">Imagem inteira</button>' +
+      '<button class="mini" type="button" data-adj="reset">Centralizar</button>' +
+      '<button class="mini" type="button" data-adj="done">Concluir</button>' +
+      '<span class="adjust-tip">Arraste a imagem (ou use as setas do teclado) para posicionar.</span>';
+    slot.querySelector('.actions').insertAdjacentElement('afterend', p);
+    btn.addEventListener('click', function () {
+      if (adjusting === slot) { stopAdjust(); return; }
+      if (!fr.querySelector('img')) { flash(btn, 'Coloque uma imagem antes'); return; }
+      stopAdjust();
+      adjusting = slot; slot.classList.add('adjusting');
+      btn.setAttribute('aria-pressed', 'true'); fr.tabIndex = 0; syncPanel(slot);
+    });
+    p.addEventListener('input', function (ev) {
+      if (ev.target.getAttribute('data-adj') !== 'z') return;
+      var a = getAdj(id); a.z = parseFloat(ev.target.value); setAdj(slot, a);
+    });
+    p.addEventListener('click', function (ev) {
+      var k = ev.target.getAttribute && ev.target.getAttribute('data-adj'), a = getAdj(id);
+      if (k === 'fit') { a.fit = a.fit === 'contain' ? 'cover' : 'contain'; setAdj(slot, a); }
+      else if (k === 'reset') setAdj(slot, defAdj());
+      else if (k === 'done') { stopAdjust(); btn.focus(); }
+    });
+    fr.addEventListener('pointerdown', function (ev) {
+      if (adjusting !== slot || (ev.button || 0) !== 0) return;
+      var a = getAdj(id);
+      drag = { sx: ev.clientX, sy: ev.clientY, x: a.x, y: a.y, w: fr.clientWidth, h: fr.clientHeight };
+      try { fr.setPointerCapture(ev.pointerId); } catch (err) {}
+      ev.preventDefault();
+    });
+    fr.addEventListener('pointermove', function (ev) {
+      if (!drag) return;
+      var a = getAdj(id);
+      a.x = drag.x + (ev.clientX - drag.sx) / drag.w * 100;
+      a.y = drag.y + (ev.clientY - drag.sy) / drag.h * 100;
+      setAdj(slot, a);
+    });
+    fr.addEventListener('pointerup', function () { drag = null; });
+    fr.addEventListener('pointercancel', function () { drag = null; });
+    fr.addEventListener('wheel', function (ev) {
+      if (adjusting !== slot) return;
+      ev.preventDefault();
+      var a = getAdj(id); a.z -= ev.deltaY * 0.002; setAdj(slot, a);
+    }, { passive: false });
+    fr.addEventListener('keydown', function (ev) {
+      if (adjusting !== slot) return;
+      var d = { ArrowLeft: [-2, 0], ArrowRight: [2, 0], ArrowUp: [0, -2], ArrowDown: [0, 2] }[ev.key];
+      if (!d) return;
+      ev.preventDefault();
+      var a = getAdj(id); a.x += d[0]; a.y += d[1]; setAdj(slot, a);
+    });
+  }
+
   function openDB(cb) {
     try {
       var r = indexedDB.open('portfolio-maciely', 1);
@@ -774,7 +972,8 @@ footer p { margin: 0; max-width: none; }
           c.height = Math.round(im.height * k);
           c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
           var url = c.toDataURL('image/jpeg', 0.85);
-          showImage(slot, url);
+          adjLoc[id] = defAdj(); saveAdj();
+          showImage(slot, url); syncPanel(slot);
           saveImage(id, url, function (ok) { if (!ok) flash(pick, 'Imagem não foi salva'); });
         };
         im.src = reader.result;
@@ -782,6 +981,8 @@ footer p { margin: 0; max-width: none; }
       reader.readAsDataURL(file);
       input.value = '';
     });
+
+    setupAdjust(slot);
 
     var copyBtn = slot.querySelector('[data-act="copy"]');
     if (copyBtn) {
@@ -793,7 +994,6 @@ footer p { margin: 0; max-width: none; }
       });
     }
   });
-  openDB(loadImages);
 
   /* ---------- textos editáveis ---------- */
   var store = {};
@@ -804,7 +1004,6 @@ footer p { margin: 0; max-width: none; }
   fields.forEach(function (el) {
     var key = el.getAttribute('data-edit');
     el.setAttribute('data-def', el.textContent.trim());
-    if (Object.prototype.hasOwnProperty.call(store, key)) el.textContent = store[key];
     el.addEventListener('input', function () {
       store[key] = el.innerText.replace(/\n+$/, '');
       persist();
@@ -828,6 +1027,10 @@ footer p { margin: 0; max-width: none; }
       var box = slot.querySelector('.vlink');
       if (!u || !box) return;
       var val = u.textContent.trim();
+      if (/^\S+\.(mp4|webm|ogv|mov|m4v)(\?\S*)?$/i.test(val)) {
+        if (slot.dataset.direct !== val) { slot.dataset.direct = val; showVideo(slot, val); }
+        box.hidden = true; return;
+      }
       if (/^https?:\/\/\S+$/i.test(val)) { box.querySelector('a').href = val; box.hidden = false; }
       else box.hidden = true;
     });
@@ -835,8 +1038,33 @@ footer p { margin: 0; max-width: none; }
   document.addEventListener('input', syncLinks);
   syncLinks();
 
+  /* ---------- trava do modo editor ---------- */
+  /* A senha fica guardada só como "hash". Para trocar: abra o site, aperte F12, aba Console,
+     digite gerarHashSenha('nova senha') e cole o resultado em SENHA_HASH abaixo. */
+  var SENHA_HASH = '4666c43c51f50';
+  function senhaHash(str) {
+    var h1 = 0xdeadbeef ^ 0, h2 = 0x41c6ce57 ^ 0;
+    str = 'pm-tcc|' + str;
+    for (var i = 0, ch; i < str.length; i++) {
+      ch = str.charCodeAt(i);
+      h1 = Math.imul(h1 ^ ch, 2654435761);
+      h2 = Math.imul(h2 ^ ch, 1597334677);
+    }
+    h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+    h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+    return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(16);
+  }
+  window.gerarHashSenha = senhaHash;
+
+  var bar = document.getElementById('editor-bar');
+  var lockBtn = document.getElementById('lock-open');
+  var dlg = document.getElementById('lock-dlg');
+  var pass = document.getElementById('lock-pass');
+  var lockMsg = document.getElementById('lock-msg');
   var toggle = document.getElementById('edit-toggle');
+
   function setEditing(on) {
+    if (!on) stopAdjust();
     document.body.classList.toggle('editing', on);
     toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
     toggle.textContent = 'Modo edição: ' + (on ? 'ligado' : 'desligado');
@@ -845,20 +1073,53 @@ footer p { margin: 0; max-width: none; }
     });
   }
   toggle.addEventListener('click', function () { setEditing(toggle.getAttribute('aria-pressed') !== 'true'); });
-  setEditing(true);
 
-  var area = document.getElementById('export-area');
+  function enterEditor() {
+    if (editorOn) return;
+    editorOn = true;
+    try { sessionStorage.setItem('pm-editor', '1'); } catch (err) {}
+    bar.hidden = false; lockBtn.hidden = true;
+    applyLocal(function () { setEditing(true); });
+  }
+  lockBtn.addEventListener('click', function () {
+    pass.value = ''; lockMsg.hidden = true;
+    dlg.showModal(); pass.focus();
+  });
+  document.getElementById('lock-cancel').addEventListener('click', function () { dlg.close(); });
+  document.getElementById('lock-form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    if (senhaHash(pass.value.trim()) === SENHA_HASH) {
+      dlg.close();
+      if (booted) enterEditor(); else wantEditor = true;
+    } else { lockMsg.hidden = false; pass.select(); }
+  });
+  document.getElementById('exit-btn').addEventListener('click', function () {
+    try { sessionStorage.removeItem('pm-editor'); } catch (err) {}
+    location.reload();
+  });
+
+  /* ---------- exportar dados.json ---------- */
   var exportBtn = document.getElementById('export-btn');
   exportBtn.addEventListener('click', function () {
-    var out = {};
-    fields.forEach(function (el) {
-      var key = el.getAttribute('data-edit');
-      if (Object.prototype.hasOwnProperty.call(store, key) && store[key] !== el.getAttribute('data-def')) out[key] = store[key];
+    readLocal(function (imgs) {
+      var out = { versao: 1, textos: {}, imagens: {}, ajustes: {} };
+      var tx = Object.assign({}, pub.textos, store);
+      fields.forEach(function (el) {
+        var k = el.getAttribute('data-edit');
+        if (typeof tx[k] === 'string' && tx[k] !== el.getAttribute('data-def')) out.textos[k] = tx[k];
+      });
+      var im = Object.assign({}, pub.imagens, imgs);
+      Object.keys(im).forEach(function (id) { if (slotMap[id] && typeof im[id] === 'string') out.imagens[id] = im[id]; });
+      var aj = Object.assign({}, pub.ajustes, adjLoc);
+      Object.keys(aj).forEach(function (id) { if (slotMap[id] && !isDef(aj[id])) out.ajustes[id] = aj[id]; });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 1)], { type: 'application/json' }));
+      a.download = 'dados.json';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+      flash(exportBtn, 'dados.json baixado!');
+      document.getElementById('export-msg').hidden = false;
     });
-    if (!Object.keys(out).length) { flash(exportBtn, 'Nenhum texto alterado'); area.hidden = true; return; }
-    var json = JSON.stringify(out, null, 1);
-    area.value = json;
-    copyText(json, exportBtn, function () { area.hidden = false; area.focus(); area.select(); });
   });
 
   /* ---------- abas e navegação por hash ---------- */
@@ -893,6 +1154,7 @@ footer p { margin: 0; max-width: none; }
   }
   window.addEventListener('hashchange', function () { route(true); });
   route(!!location.hash);
+  boot();
 })();
 </script>
 
