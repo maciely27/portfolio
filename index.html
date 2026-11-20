@@ -196,6 +196,7 @@ a { color: inherit; }
 .bezel { width: 100%; max-width: 250px; margin-inline: auto; padding: 10px; background: var(--device); border: 1px solid var(--line); border-radius: 40px; box-shadow: var(--shadow); }
 .bezel .frame { aspect-ratio: 9 / 18; border: 0; border-radius: 30px; }
 .frame video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: var(--device); }
+.frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: var(--device); }
 .vlink { margin: 0; font-size: 0.9rem; font-weight: 600; }
 .vlink a { color: var(--accent); }
 .vurl { display: none; margin: 0; font-size: 0.82rem; color: var(--muted); }
@@ -834,6 +835,8 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
   function showVideo(slot, src) {
     var frame = slot.querySelector('.frame');
     if (!frame) return;
+    var iframe = frame.querySelector('iframe');
+    if (iframe) iframe.remove();
     var v = frame.querySelector('video');
     if (!v) {
       v = document.createElement('video');
@@ -850,6 +853,57 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
     frame.classList.add('has-img');
     frame.removeAttribute('role');
     frame.removeAttribute('aria-label');
+  }
+  function showYouTube(slot, id) {
+    var frame = slot.querySelector('.frame');
+    if (!frame) return;
+    var video = frame.querySelector('video');
+    if (video) {
+      if (video.dataset.url && video.dataset.url.indexOf('blob:') === 0) URL.revokeObjectURL(video.dataset.url);
+      video.remove();
+    }
+    var iframe = frame.querySelector('iframe');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.setAttribute('loading', 'lazy');
+      iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      iframe.setAttribute('allow', 'encrypted-media; picture-in-picture; fullscreen');
+      frame.appendChild(iframe);
+    }
+    iframe.title = altFor(slot);
+    iframe.src = 'https://www.youtube.com/embed/' + id;
+    frame.classList.add('has-img');
+    frame.removeAttribute('role');
+    frame.removeAttribute('aria-label');
+  }
+  function clearVideoPlayer(slot) {
+    var frame = slot.querySelector('.frame');
+    if (!frame) return;
+    frame.querySelectorAll('video, iframe').forEach(function (player) {
+      if (player.tagName === 'VIDEO' && player.dataset.url && player.dataset.url.indexOf('blob:') === 0) {
+        URL.revokeObjectURL(player.dataset.url);
+      }
+      player.remove();
+    });
+    frame.classList.remove('has-img');
+    frame.setAttribute('role', 'img');
+    frame.setAttribute('aria-label', 'Espaço para o vídeo');
+  }
+  function youtubeIdFromUrl(value) {
+    var url;
+    try { url = new URL(value); } catch (err) { return ''; }
+    if (url.protocol !== 'https:' && url.protocol !== 'http:') return '';
+    var host = url.hostname.toLowerCase(), id = '';
+    if (host === 'youtu.be') {
+      id = url.pathname.split('/')[1] || '';
+    } else if (host === 'youtube.com' || host === 'www.youtube.com' || host === 'm.youtube.com' || host === 'music.youtube.com') {
+      if (url.pathname === '/watch') id = url.searchParams.get('v') || '';
+      else {
+        var match = url.pathname.match(/^\/(?:shorts|embed|live)\/([^/]+)/);
+        if (match) id = match[1];
+      }
+    }
+    return /^[A-Za-z0-9_-]{11}$/.test(id) ? id : '';
   }
   function saveImage(id, url, done) {
     if (db) {
@@ -1140,8 +1194,22 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
       var val = u.textContent.trim();
       if (/^\S+\.(mp4|webm|ogv|mov|m4v)(\?\S*)?$/i.test(val)) {
         if (slot.dataset.direct !== val) { slot.dataset.direct = val; showVideo(slot, val); }
+        delete slot.dataset.youtubeId;
         box.hidden = true; return;
       }
+      var videoId = youtubeIdFromUrl(val);
+      if (videoId) {
+        if (slot.dataset.youtubeId !== videoId) {
+          showYouTube(slot, videoId);
+          slot.dataset.youtubeId = videoId;
+        }
+        delete slot.dataset.direct;
+        box.hidden = true; return;
+      }
+      var hasSyncedVideo = !!(slot.dataset.direct || slot.dataset.youtubeId);
+      delete slot.dataset.direct;
+      delete slot.dataset.youtubeId;
+      if (hasSyncedVideo) clearVideoPlayer(slot);
       if (/^https?:\/\/\S+$/i.test(val)) { box.querySelector('a').href = val; box.hidden = false; }
       else box.hidden = true;
     });
