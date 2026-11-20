@@ -128,6 +128,7 @@ a { color: inherit; }
 
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem; flex-wrap: wrap; padding-block: 1rem; }
 .brand { display: flex; align-items: center; gap: 0.65rem; font: 700 0.95rem var(--font-display); text-decoration: none; }
+.school-logo { display: block; flex: 0 1 11rem; width: clamp(7.5rem, 15vw, 11rem); height: auto; object-fit: contain; }
 .mono { width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font: 700 0.82rem var(--font-display); letter-spacing: 0.02em; }
 .tabs { display: flex; flex-wrap: wrap; gap: 0.3rem; padding: 0.3rem; background: var(--tabbg); border-radius: 999px; }
 .tab { padding: 0.55rem 1.05rem; border-radius: 999px; font-weight: 600; font-size: 0.9rem; color: var(--fg-soft); text-decoration: none; }
@@ -170,6 +171,25 @@ a { color: inherit; }
 .src { margin: 0; font-size: 0.8rem; color: var(--muted); }
 .desc { margin: 0; color: var(--fg-soft); font-size: 0.92rem; white-space: pre-line; flex: 1; }
 .chip-area { margin: 0; align-self: flex-start; background: var(--soft); color: var(--accent); font: 700 0.7rem var(--font-display); letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 999px; }
+.activity-presentation {
+  position: fixed; top: 50%; right: auto; bottom: auto; left: 50%; width: min(720px, calc(100vw - 2rem)); max-width: calc(100vw - 2rem);
+  max-height: min(78vh, 720px); max-height: min(78dvh, 720px); overflow: auto;
+  margin: 0; padding: 2.75rem 1.5rem 1.5rem; border: 1px solid var(--line); border-radius: 24px;
+  background: var(--surface); color: var(--fg); box-shadow: var(--shadow);
+  opacity: 0; transform: translate(-50%, -48%) scale(0.97);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+.activity-presentation.is-open { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.activity-presentation::backdrop { background: rgba(22, 14, 34, 0); transition: background 0.22s ease; }
+.activity-presentation.is-open::backdrop { background: rgba(22, 14, 34, 0.72); }
+.presentation-content > .fig { width: 100%; }
+.presentation-close {
+  position: absolute; top: 0.75rem; right: 0.75rem; display: grid; place-items: center;
+  width: 2rem; height: 2rem; padding: 0; border: 1px solid var(--line); border-radius: 50%;
+  background: var(--surface); color: var(--accent); cursor: pointer;
+}
+.presentation-close:hover { border-color: var(--accent); }
+.presentation-close svg { width: 1rem; height: 1rem; }
 .r43 { aspect-ratio: 4 / 3; }
 .rwide { aspect-ratio: 16 / 10; }
 .rport { aspect-ratio: 4 / 5; }
@@ -270,6 +290,17 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
 :root[data-theme="dark"] .lock .lock-msg { color: #FFB4AB; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .lock .lock-msg { color: #FFB4AB; } }
 .lock-actions { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1.1rem; }
+.back-to-top {
+  position: fixed; z-index: 20; right: max(1.25rem, env(safe-area-inset-right, 0px)); bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+  display: grid; place-items: center; width: 3rem; height: 3rem; padding: 0;
+  background: var(--accent); color: var(--accent-ink); border: 1px solid var(--line); border-radius: 50%;
+  box-shadow: var(--shadow); cursor: pointer; transition: transform 0.2s ease, filter 0.2s ease;
+}
+.back-to-top:hover { transform: translateY(-3px); filter: brightness(1.06); }
+.back-to-top svg { width: 1.35rem; height: 1.35rem; }
+@media (prefers-reduced-motion: reduce) {
+  .activity-presentation, .activity-presentation::backdrop, .back-to-top { transition: none; }
+}
 
 /* ajuste de imagem */
 .adjust-panel { display: none; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; padding: 0.6rem 0.75rem; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; font-size: 0.8rem; color: var(--fg-soft); }
@@ -298,6 +329,7 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
   .toc a { flex-wrap: wrap; }
   .toc .dots { display: none; }
   .toc .w { margin-left: auto; }
+  .activity-presentation { padding: 2.75rem 1rem 1rem; }
 }
 </style>
 </head>
@@ -316,6 +348,12 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
   <symbol id="ico-play" viewBox="0 0 48 48">
     <circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/>
     <path d="M20 16.5v15l12-7.5z" fill="currentColor"/>
+  </symbol>
+  <symbol id="ico-up" viewBox="0 0 24 24">
+    <path d="M12 19V5m-7 7 7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="ico-close" viewBox="0 0 24 24">
+    <path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
   </symbol>
 </svg>
 
@@ -337,6 +375,7 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
   <div class="wrap">
     <nav class="nav" aria-label="Abas do portfólio">
       <a class="brand" href="#inicio"><span class="mono" aria-hidden="true">MA</span>Maciely Alves</a>
+      <img class="school-logo" src="assets/logo-sesi-senai.png" alt="SESI SENAI">
       <div class="tabs">
         <a class="tab" href="#inicio" data-nav="inicio">Início</a>
         <a class="tab" href="#conjuntos" data-nav="conjuntos">Conjuntos avaliativos</a>
@@ -608,6 +647,17 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
   </form>
 </dialog>
 
+<dialog class="activity-presentation" id="activity-presentation">
+  <button class="presentation-close" id="presentation-close" type="button" aria-label="Fechar atividade" title="Fechar atividade">
+    <svg aria-hidden="true" focusable="false"><use href="#ico-close"/></svg>
+  </button>
+  <div class="presentation-content" id="presentation-content"></div>
+</dialog>
+
+<button class="back-to-top" id="back-to-top" type="button" aria-label="Voltar ao topo" title="Voltar ao topo" hidden>
+  <svg aria-hidden="true" focusable="false"><use href="#ico-up"/></svg>
+</button>
+
 <script>
 (function () {
   var SRC = 'Fonte: Arquivo pessoal da autora (2026).';
@@ -669,6 +719,67 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
   });
   html += '</div></div>';
   document.getElementById('subpanels').innerHTML = html;
+  var subpanels = document.getElementById('subpanels');
+  var presentationDialog = document.getElementById('activity-presentation');
+  var presentationContent = document.getElementById('presentation-content');
+  var activeActivity = null, activePlaceholder = null, closingPresentation = false;
+  function restoreActivity() {
+    if (!activeActivity) return;
+    activeActivity.classList.remove('is-selected');
+    activeActivity.removeAttribute('aria-current');
+    if (activePlaceholder && activePlaceholder.parentNode) {
+      activePlaceholder.parentNode.insertBefore(activeActivity, activePlaceholder);
+      activePlaceholder.parentNode.removeChild(activePlaceholder);
+    }
+    activeActivity = null;
+    activePlaceholder = null;
+    closingPresentation = false;
+  }
+  function closePresentation(afterClose) {
+    if (!activeActivity) {
+      if (afterClose) afterClose();
+      return;
+    }
+    if (closingPresentation) return;
+    closingPresentation = true;
+    presentationDialog.classList.remove('is-open');
+    window.setTimeout(function () {
+      if (presentationDialog.open) presentationDialog.close();
+      restoreActivity();
+      if (afterClose) afterClose();
+    }, 220);
+  }
+  function openPresentation(activity) {
+    if (activeActivity === activity) return;
+    if (activeActivity) {
+      closePresentation(function () { openPresentation(activity); });
+      return;
+    }
+    activePlaceholder = document.createComment('atividade em apresentação');
+    activity.parentNode.insertBefore(activePlaceholder, activity);
+    activeActivity = activity;
+    activity.classList.add('is-selected');
+    activity.setAttribute('aria-current', 'true');
+    var caption = activity.querySelector('figcaption');
+    presentationDialog.setAttribute('aria-label', caption ? caption.textContent.trim() : 'Apresentação da atividade');
+    presentationContent.appendChild(activity);
+    presentationDialog.showModal();
+    window.requestAnimationFrame(function () { presentationDialog.classList.add('is-open'); });
+  }
+  subpanels.addEventListener('click', function (ev) {
+    var target = ev.target;
+    var activity = target && target.closest ? target.closest('figure.fig') : null;
+    if (!activity || !subpanels.contains(activity)) return;
+    openPresentation(activity);
+  });
+  presentationDialog.addEventListener('cancel', function (ev) {
+    ev.preventDefault();
+    closePresentation();
+  });
+  presentationDialog.addEventListener('click', function (ev) {
+    if (ev.target === presentationDialog) closePresentation();
+  });
+  document.getElementById('presentation-close').addEventListener('click', function () { closePresentation(); });
 
   document.querySelectorAll('[data-mount="fig"]').forEach(function (m) {
     var d = m.dataset;
@@ -1154,6 +1265,11 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
   }
   window.addEventListener('hashchange', function () { route(true); });
   route(!!location.hash);
+  var backToTop = document.getElementById('back-to-top');
+  function updateBackToTop() { backToTop.hidden = window.scrollY < 240; }
+  window.addEventListener('scroll', updateBackToTop, { passive: true });
+  backToTop.addEventListener('click', function () { document.getElementById('topo').scrollIntoView(); });
+  updateBackToTop();
   boot();
 })();
 </script>
