@@ -277,6 +277,12 @@ h2 { font-weight: 800; font-size: clamp(1.6rem, 3.6vw, 2.3rem); line-height: 1.1
 /* futuro */
 .refs { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; max-width: 70ch; }
 .refs li { font-size: 0.95rem; color: var(--fg-soft); }
+.closing-layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 2rem 3.5rem; align-items: center; }
+.closing-layout .sec-head { margin: 0; }
+.closing-image { width: 100%; max-width: 440px; justify-self: end; }
+.closing-image .frame { aspect-ratio: 4 / 3; border: 1px solid var(--line); border-radius: 22px; }
+.closing-image .ph { font-size: 0.78rem; }
+.closing-image .actions { margin-top: 0.75rem; }
 .band { position: relative; overflow: hidden; background: linear-gradient(200deg, var(--hero-1), var(--hero-2)); }
 .band .text p { color: var(--fg-soft); }
 footer { padding-block: 1.5rem; color: var(--muted); font-size: 0.85rem; }
@@ -326,6 +332,8 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
 @media (max-width: 820px) {
   .hero-grid, .about, .toc-wrap, .work { grid-template-columns: minmax(0, 1fr); }
   .portrait { max-width: 320px; justify-self: start; }
+  .closing-layout { grid-template-columns: minmax(0, 1fr); }
+  .closing-image { max-width: 520px; justify-self: start; }
 }
 @media (max-width: 640px) {
   .pair { grid-template-columns: minmax(0, 1fr); }
@@ -585,22 +593,34 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
   <!-- ============ ABA PROJEÇÃO DE FUTURO ============ -->
   <div id="futuro" data-tab="futuro" hidden>
     <section class="sec">
-      <div class="wrap">
+      <div class="wrap closing-layout">
         <div class="sec-head text">
           <p class="label">Projeção de futuro</p>
           <h2>Meus próximos passos</h2>
           <p data-edit="futuro.p">Depois do 3º EMI B quero continuar estudando, fazer o ENEM e seguir carreira na área de tecnologia. Também pretendo manter o hábito de planejar minha rotina e de buscar novos cursos para crescer na profissão.</p>
         </div>
+        <figure class="closing-image" data-slot="final-proximos-passos" data-alt="Imagem sobre os próximos passos">
+          <div class="frame r43" role="img" aria-label="Espaço para a imagem dos próximos passos">
+            <div class="ph"><svg width="40" height="40" aria-hidden="true"><use href="#ico-img"/></svg><span>Imagem dos próximos passos</span></div>
+          </div>
+          <div class="actions"><button class="mini" type="button" data-act="pick">Adicionar ou trocar imagem</button><button class="mini" type="button" data-act="adjust" aria-pressed="false">Ajustar imagem</button></div>
+        </figure>
       </div>
     </section>
 
     <section class="sec alt" id="conclusao">
-      <div class="wrap">
+      <div class="wrap closing-layout">
         <div class="sec-head text">
           <p class="label">Conclusão</p>
           <h2>Conclusão</h2>
           <p data-edit="conclusao.p">Chegar ao fim do EMI mostrou que cada etapa teve um papel: o ensino fundamental criou a base, a 1ª série abriu possibilidades, a 2ª aprofundou os conhecimentos e a 3ª reuniu tudo isso em projetos e no TCC. Levo desse caminho a certeza de que aprender é um processo coletivo e contínuo.</p>
         </div>
+        <figure class="closing-image" data-slot="final-conclusao" data-alt="Imagem da conclusão">
+          <div class="frame r43" role="img" aria-label="Espaço para a imagem da conclusão">
+            <div class="ph"><svg width="40" height="40" aria-hidden="true"><use href="#ico-img"/></svg><span>Imagem da conclusão</span></div>
+          </div>
+          <div class="actions"><button class="mini" type="button" data-act="pick">Adicionar ou trocar imagem</button><button class="mini" type="button" data-act="adjust" aria-pressed="false">Ajustar imagem</button></div>
+        </figure>
       </div>
     </section>
 
@@ -624,12 +644,18 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
 
     <section class="sec band" id="agradecimentos">
       <span class="blob c" aria-hidden="true"></span>
-      <div class="wrap">
+      <div class="wrap closing-layout">
         <div class="sec-head text">
           <p class="label">Agradecimentos</p>
           <h2>Agradecimentos</h2>
           <p data-edit="agradecimentos.p">Agradeço à minha família, aos professores e aos colegas da turma do 3º EMI B pelo apoio e pelo aprendizado compartilhado neste percurso.</p>
         </div>
+        <figure class="closing-image" data-slot="final-agradecimentos" data-alt="Imagem dos agradecimentos">
+          <div class="frame r43" role="img" aria-label="Espaço para a imagem dos agradecimentos">
+            <div class="ph"><svg width="40" height="40" aria-hidden="true"><use href="#ico-img"/></svg><span>Imagem dos agradecimentos</span></div>
+          </div>
+          <div class="actions"><button class="mini" type="button" data-act="pick">Adicionar ou trocar imagem</button><button class="mini" type="button" data-act="adjust" aria-pressed="false">Ajustar imagem</button></div>
+        </figure>
       </div>
     </section>
   </div>
